@@ -43,7 +43,6 @@ uint32_t jenkins_hash(const char *key) {
 
 void insert_record(const char *name, uint32_t salary) {
     uint32_t hash = jenkins_hash(name);
-    //fprintf(output_file, "%llu,INSERT,%s,%u\n", get_timestamp(), name, salary);
     fprintf(output_file, "%lu,INSERT,%s,%u\n", get_timestamp(), name, salary);
     
     rwlock_acquire_writelock(&table_lock);
@@ -83,8 +82,7 @@ void insert_record(const char *name, uint32_t salary) {
 
 void delete_record(const char *name) {
     uint32_t hash = jenkins_hash(name);
-    //fprintf(output_file, "%llu,DELETE,%s\n", get_timestamp(), name);
-      fprintf(output_file, "%lu,DELETE,%s\n", get_timestamp(), name);
+    fprintf(output_file, "%lu,DELETE,%s\n", get_timestamp(), name);
 
     rwlock_acquire_writelock(&table_lock);
     lock_acquisitions++;
@@ -112,7 +110,6 @@ void delete_record(const char *name) {
 
 hashRecord* search_record(const char *name) {
     uint32_t hash = jenkins_hash(name);
-    //fprintf(output_file, "%llu,SEARCH,%s\n", get_timestamp(), name);
     fprintf(output_file, "%lu,SEARCH,%s\n", get_timestamp(), name);
 
     rwlock_acquire_readlock(&table_lock);
